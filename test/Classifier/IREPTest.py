@@ -55,7 +55,9 @@ class IREPTest(ClassifierTest):
         irep.train(self.iris.getInstanceList()) 
         error = 100 * irep.test(self.iris.getInstanceList()).getErrorRate()
         print(f"Iris Error       : %{error:.2f}")
-        self.assertLess(error, 50.0)
+        self.assertLess(error, 30.0, f"Iris error is high! %{error:.2f} Check the model.")
+        print(">> Iris Status   : PASSED [OK]")
+        print("-" * 30)
 
         # 2. Bupa
         # Using min_coverage=5 to reduce overfitting on noisy data
@@ -63,11 +65,18 @@ class IREPTest(ClassifierTest):
         irep.train(self.bupa.getInstanceList(), params_bupa)
         error = 100 * irep.test(self.bupa.getInstanceList()).getErrorRate()
         print(f"Bupa Error       : %{error:.2f}")
+        self.assertLess(error, 60.0, f"Bupa error is high! %{error:.2f} Check the model.")
+        print(">> Bupa Status   : PASSED [OK]")
+        print("-" * 30)
 
         # 3. Dermatology
         irep.train(self.dermatology.getInstanceList())
         error = 100 * irep.test(self.dermatology.getInstanceList()).getErrorRate()
         print(f"Dermatology Error: %{error:.2f}")
+        self.assertLess(error, 40.0, f"Dermatology error is high! %{error:.2f} Check the model.")
+        print(">> Derma Status  : PASSED [OK]")
+        print("-" * 30)
+
 
         # 4. Car
         # Using higher pruning ratio for better generalization
@@ -75,11 +84,17 @@ class IREPTest(ClassifierTest):
         irep.train(self.car.getInstanceList(), params_car)
         error = 100 * irep.test(self.car.getInstanceList()).getErrorRate()
         print(f"Car Error        : %{error:.2f}")
+        self.assertLess(error, 40.0, f"Car error is high! %{error:.2f} Check the model.")
+        print(">> Car Status    : PASSED [OK]")
+        print("-" * 30)
         
         # 5. TicTacToe
         irep.train(self.tictactoe.getInstanceList())
         error = 100 * irep.test(self.tictactoe.getInstanceList()).getErrorRate()
         print(f"TicTacToe Error  : %{error:.2f}")
+        self.assertLess(error, 30.0, f"TicTacToe error is high! %{error:.2f} Check the model.")
+        print(">> TicTac Status : PASSED [OK]")
+        print("="*40)
 
     def test_Load(self):
         print("\n--- IREPModel Save/Load Test ---")

@@ -1,5 +1,7 @@
 import unittest
 import os
+import random
+import numpy as np
 
 from Classification.Parameter.IREPParameter import IREPParameter
 from Classification.IREP.IREPModel import IREPModel
@@ -17,6 +19,9 @@ class IREPTest(ClassifierTest):
     def setUp(self) -> None:
         # Load datasets with correct attribute definitions
         
+        random.seed(42)
+        np.random.seed(42)
+
         # 1. Iris (Continuous)
         attributeTypes = 4 * [AttributeType.CONTINUOUS]
         dataDefinition = DataDefinition(attributeTypes)
@@ -55,7 +60,7 @@ class IREPTest(ClassifierTest):
         irep.train(self.iris.getInstanceList()) 
         error = 100 * irep.test(self.iris.getInstanceList()).getErrorRate()
         print(f"Iris Error       : %{error:.2f}")
-        self.assertLess(error, 30.0, f"Iris error is high! %{error:.2f} Check the model.")
+        self.assertAlmostEqual(2.00, error, 2)
         print(">> Iris Status   : PASSED [OK]")
         print("-" * 30)
 
@@ -65,7 +70,7 @@ class IREPTest(ClassifierTest):
         irep.train(self.bupa.getInstanceList(), params_bupa)
         error = 100 * irep.test(self.bupa.getInstanceList()).getErrorRate()
         print(f"Bupa Error       : %{error:.2f}")
-        self.assertLess(error, 60.0, f"Bupa error is high! %{error:.2f} Check the model.")
+        self.assertAlmostEqual(27.83, error, 2)
         print(">> Bupa Status   : PASSED [OK]")
         print("-" * 30)
 
@@ -73,7 +78,7 @@ class IREPTest(ClassifierTest):
         irep.train(self.dermatology.getInstanceList())
         error = 100 * irep.test(self.dermatology.getInstanceList()).getErrorRate()
         print(f"Dermatology Error: %{error:.2f}")
-        self.assertLess(error, 40.0, f"Dermatology error is high! %{error:.2f} Check the model.")
+        self.assertAlmostEqual(3.55, error, 2)
         print(">> Derma Status  : PASSED [OK]")
         print("-" * 30)
 
@@ -84,7 +89,7 @@ class IREPTest(ClassifierTest):
         irep.train(self.car.getInstanceList(), params_car)
         error = 100 * irep.test(self.car.getInstanceList()).getErrorRate()
         print(f"Car Error        : %{error:.2f}")
-        self.assertLess(error, 40.0, f"Car error is high! %{error:.2f} Check the model.")
+        self.assertAlmostEqual(22.63, error, 2)
         print(">> Car Status    : PASSED [OK]")
         print("-" * 30)
         
@@ -92,7 +97,7 @@ class IREPTest(ClassifierTest):
         irep.train(self.tictactoe.getInstanceList())
         error = 100 * irep.test(self.tictactoe.getInstanceList()).getErrorRate()
         print(f"TicTacToe Error  : %{error:.2f}")
-        self.assertLess(error, 30.0, f"TicTacToe error is high! %{error:.2f} Check the model.")
+        self.assertAlmostEqual(1.67, error, 2)
         print(">> TicTac Status : PASSED [OK]")
         print("="*40)
 

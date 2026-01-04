@@ -27,7 +27,6 @@ class IREPModel(Model):
         min_coverage = 1
         if parameters is None:
             pruning_ratio = 0.66
-            random.seed()
         else:
             pruning_ratio = parameters.getPruningRatio()
             min_coverage = parameters.getMinCoverage()
@@ -272,4 +271,4 @@ class IREPModel(Model):
         values = set()
         for inst in instances:
             values.add(inst.getAttribute(attribute_index).getValue())
-        return list(values)
+        return sorted(list(values))
